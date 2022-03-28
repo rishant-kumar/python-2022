@@ -72,3 +72,4 @@ if len(names) == 0:
 else:
     for name in names:
         print("We have {} in list" .format(name))
+# Copyright - Rishant
