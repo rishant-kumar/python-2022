@@ -1,6 +1,4 @@
-from audioop import add
-
-
+# 28/03/2022 work P4
 names = ['Patrick', "David"]
 
 def adding_names(names):
