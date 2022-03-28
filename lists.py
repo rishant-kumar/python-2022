@@ -9,7 +9,7 @@ def adding_names(names):
         print(", ".join(names))
         repeat_error = True
         while repeat_error:
-            add_more_names = input("Would you like to add more names? yes/no: ").strip().lower()
+            add_more_names = input("\nWould you like to add more names? yes/no: ").strip().lower()
             if add_more_names == 'yes':
                 repeat = True
                 repeat_error = False
@@ -29,7 +29,7 @@ def removing_names(names):
         print(", ".join(names))
         repeat_error = True
         while repeat_error:
-            remove_more_names = input("Would you like to remove more names? yes/no: ").strip().lower()
+            remove_more_names = input("\nWould you like to remove more names? yes/no: ").strip().lower()
             if remove_more_names == 'yes':
                 repeat = True
                 repeat_error = False
@@ -49,7 +49,7 @@ else:
     print(", ".join(names))
 
 # add names to list
-start_adding_names = input("Would you like to add names to list? yes/no: ").strip().lower()
+start_adding_names = input("\nWould you like to add names to list? yes/no: ").strip().lower()
 if start_adding_names == 'yes':
     adding_names(names)
 elif start_adding_names == 'no':
@@ -58,7 +58,7 @@ else:
     print("Enter 'yes' or 'no'")
 
 # remove names from list    
-start_removing_names = input("Would you like to remove names to list? yes/no: ").strip().lower()
+start_removing_names = input("\nWould you like to remove names from list? yes/no: ").strip().lower()
 if start_removing_names == 'yes':
     removing_names(names)
 elif start_removing_names == 'no':
@@ -68,8 +68,10 @@ else:
 
 # prints final list
 if len(names) == 0:
-    print("No names in final list!")
+    print("\nNo names in final list!")
 else:
     for name in names:
-        print("We have {} in list" .format(name))
+        print("We have {} in list".format(name))
+
+print("Names in alphabetical order:\n{}".format(", ".join(sorted(names))))
 # Copyright - Rishant
