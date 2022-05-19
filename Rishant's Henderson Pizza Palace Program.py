@@ -69,3 +69,12 @@ def topping_menu():
         topping = getattr(entry,'topping').ljust(25)
         price = getattr(entry,'price').ljust(7)
         print('{}{}{}'.format(index, topping, price))
+
+# Menu function prints out the instructions for the user so they can use a mode option for the Henderson Pizza Palace service.
+def main_menu():
+  """Prints out the instructions for the user so they can use an action option to use the Henderson Pizza Palace service."""
+  print("\nType: \n")
+  print("'1' to view action menu\n")
+  print("'2' to view pizza menu\n")
+  print("'3' to order pizza\n")
+  print("'4' to cancel ordering\n")
