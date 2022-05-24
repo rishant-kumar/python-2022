@@ -13,31 +13,31 @@ order_cost = 0
 user_info = {}
 
 # Dictionary Pizza to price, key = pizza, value = price
-pizza_to_price = {'Classic Cheese': 5.00, 'Classic Veggie': 5.00, 'Pepperoni': 5.00, 'Margherita': 5.00, 'Spicy Paneer': 5.00, 'Tandoori Chicken': 8.50, 'Peri Peri Chicken': 8.50, 'BBQ Chicken': 8.50, 'Garlic Prawn': 8.50, 'Americano': 8.50, 'Supreme': 8.50, 'Spicy Lamb': 8.50,}
+pizza_to_price = {'Classic Cheese': 8.50, 'Classic Veggie': 8.50, 'Pepperoni': 8.50, 'Margherita': 8.50, 'Spicy Paneer': 8.50, 'Tandoori Chicken': 13.50, 'Peri Peri Chicken': 13.50, 'BBQ Chicken': 13.50, 'Garlic Prawn': 13.50, 'Americano': 8.50, 'Supreme': 8.50, 'Spicy Lamb': 13.50,}
 
 # Index of pizza to price
-index_to_price = {'1': 5.00, '2': 5.00, '3': 5.00, '4': 5.00, '5': 5.00, '6': 8.50, '7': 8.50, '8': 8.50, '9': 8.50, '10': 8.50, '11': 8.50, '12': 8.50,}
+index_to_price = {'1': 8.50, '2': 8.50, '3': 8.50, '4': 8.50, '5': 8.50, '6': 13.50, '7': 13.50, '8': 13.50, '9': 13.50, '10': 13.50, '11': 13.50, '12': 13.50,}
 
 # Index to pizza
-index_to_pizza = {'1': '\n- Classic Cheese', '2': '\n- Classic Veggie', '3': '\n- Pepperoni', '4': '\n- Margherita', '5': '\n- Spicy Paneer', '6': '\n- Tandoori Chicken', '7': '\n- Peri Peri Chicken', '8': '\n- BBQ Chicken', '9': '\n- Garlic Prawn', '10': '\n- Americano', '11': '\n- Supreme', '12': '\n- Spicy Lamb'}
+index_to_pizza = {'1': '\n- Classic Cheese', '2': '\n- Classic Veggie', '3': '\n- Pepperoni', '4': '\n- Margherita', '5': '\n- Spicy Paneer', '6': '\n- Americano', '7': '\n- Supreme', '8': '\n- BBQ Chicken', '9': '\n- Garlic Prawn', '10': '\n- Tandoori Chicken', '11': '\n- Peri Peri Chicken', '12': '\n- Spicy Lamb'}
 
 # defining namedtuple for pizza menu
 menu_entry = namedtuple('menu_entry', ['index','pizza','price'])
 pizza_options = []
 
 # appends pizza options to named tuple
-pizza_options.append(menu_entry(1, 'Classic Cheese', '$5.00'))
-pizza_options.append(menu_entry(2, 'Classic Veggie', '$5.00'))
-pizza_options.append(menu_entry(3, 'Pepperoni', '$5.00'))
-pizza_options.append(menu_entry(4, 'Margherita', '$5.00'))
-pizza_options.append(menu_entry(5, 'Spicy Paneer', '$5.00'))
-pizza_options.append(menu_entry(6, 'Tandoori Chicken', '$8.50'))
-pizza_options.append(menu_entry(7, 'Peri Peri Chicken', '$8.50'))
-pizza_options.append(menu_entry(8, 'BBQ Chicken', '$8.50'))
-pizza_options.append(menu_entry(9, 'Garlic Prawn', '$8.50'))
-pizza_options.append(menu_entry(10, 'Americano', '$8.50'))
-pizza_options.append(menu_entry(11, 'Supreme', '$8.50'))
-pizza_options.append(menu_entry(12, 'Spicy Lamb', '$8.50\n'))
+pizza_options.append(menu_entry(1, 'Classic Cheese', '$8.50'))
+pizza_options.append(menu_entry(2, 'Classic Veggie', '$8.50'))
+pizza_options.append(menu_entry(3, 'Pepperoni', '$8.50'))
+pizza_options.append(menu_entry(4, 'Margherita', '$8.50'))
+pizza_options.append(menu_entry(5, 'Spicy Paneer', '$8.50'))
+pizza_options.append(menu_entry(6, 'Americano', '$13.50'))
+pizza_options.append(menu_entry(7, 'Supreme', '$13.50'))
+pizza_options.append(menu_entry(8, 'BBQ Chicken', '$13.50'))
+pizza_options.append(menu_entry(9, 'Garlic Prawn', '$13.50'))
+pizza_options.append(menu_entry(10, 'Tandoori Chicken', '$13.50'))
+pizza_options.append(menu_entry(11, 'Peri Peri Chicken', '$13.50'))
+pizza_options.append(menu_entry(12, 'Spicy Lamb', '$13.50\n'))
 
 # toppings to price list
 index_to_topping = {'1': ' + Extra Cheese', '2': ' + Extra Onions', '3': ' + Extra Mushroom', '4': ' + Extra Pepperoni', '5': ' + Extra Olives', '6': ' + Extra Chicken'}
@@ -87,7 +87,7 @@ def servicing_menu(order_cost):
   print("'1' Delivery ($3 Delivery charge)\n")
   print("'2' Pick-up\n")
   print("'3' Go back to main menu\n")
-
+  global service_option
   service_repeat = True
   while service_repeat:
       service_option = input("\nInput number here: ").strip()
@@ -120,9 +120,9 @@ def servicing_menu(order_cost):
           user_info['Name'] = name.title()
 
           if len(name) <= 0 and len(address) <= 0:
-            print("\nYou have entered no name or address, please enter your contact information!\n")
+            print("\nYou have entered no name and no address! Please enter them for contacting purposes.\n")
             continue
-
+          
           else:
             print("\nYour Contact Information:")
             # prints user info dictionary
@@ -136,14 +136,10 @@ def servicing_menu(order_cost):
             print("\nPlease resubmit your contact information")
             time.sleep(1)
             contact_repeat = True
-                
+            continue
+
           # when the user enters 'yes'
           elif correct_information == "yes" or correct_information == 'y':
-            # calls pizza and topping menu functions
-            time.sleep(1)
-            pizza_menu()
-            time.sleep(1)
-            topping_menu()
             # exit loops
             break
 
@@ -160,31 +156,160 @@ def servicing_menu(order_cost):
           # adds users name to dictionary
           user_info['Name'] = name.title()
           # prints user info
-          for key, value in user_info.items():
-            print(key, ':', value)
-
-          print("\nIs the contact information shown above correct?")
-          correct_information = input("Answer ('yes' or 'no'):  ").strip().lower()
-
-          if correct_information == "no" or correct_information == 'n':
-            print("\nPlease resubmit your name for contacting purposes!")
-            time.sleep(1)
+          if len(name) <=0:
+            print("You have entered no name! Please enter one for contating purposes.")
             continue
 
-          elif correct_information == "yes" or correct_information == 'y':
-            time.sleep(1)
-            pizza_menu()
-            time.sleep(1)
-            topping_menu()
-            # exit all loops
-            break
-            
+          else:
+            for key, value in user_info.items():
+              print(key, ':', value)
 
-      elif service_option == "3":
+            print("\nIs the contact information shown above correct?")
+            correct_information = input("Answer ('yes' or 'no'):  ").strip().lower()
+
+            if correct_information == "no" or correct_information == 'n':
+              print("\nPlease resubmit your name for contacting purposes!")
+              time.sleep(1)
+              continue
+
+            elif correct_information == "yes" or correct_information == 'y':
+              # exit loops
+              break
+            
+      # heads back to main menu by exiting loop when user enters '3'
+      elif service_option == "3":   
+        print("Heading back to Main menu...")
+        time.sleep(1)
         main_menu()
+        break
+        
 
       else:
         print("\nPlease input a valid number ('1', '2' or '3'))\n")
+        continue
       
       service_repeat = False
-  time.sleep(10)
+  
+  time.sleep(1)
+
+# Function that takes in the users orders 
+def order(order_cost, topping):
+  ordering = True
+  while ordering:
+    pizza_menu()
+    print("\nOrder using the number next to the name of the pizza.")
+    time.sleep(0.5)
+    print("To finish ordering, type 'end'.")
+    time.sleep(0.5)
+    print("To cancel ordering, type 'cancel'.")
+    time.sleep(0.5)
+    new_order = input("\nInput Pizza number here: ")
+
+    # when user enters 'end', prints users order, cost, user info and also confirms order 
+    if new_order == "end":
+        print("\nContact Information:\n")
+        for key, value in user_info.items():
+              print(key, ':', value)
+        # shows the user their order
+        print("\nYour order is:\n")
+        view_order()
+        print("\nTotal cost of order is: ${}".format(order_cost))
+
+        correct_order = input("\nIs your order correct? (Please input 'yes' or 'no'): ").strip().lower()
+        # when the user confirms order, then 
+        if correct_order == "yes" or correct_order == 'y':
+            print("\nYour order will be ready soon! Thanks for ordering at Henderson Pizza Palace!\n")
+            # clears order list
+            order_list.clear()
+            main_menu()
+            break
+        # if the order is incorrect, the order list will be cleared
+        elif correct_order == "no" or correct_order == 'n':
+            order_list.clear()
+            continue
+        else:
+          print("Please enter 'yes' or 'no'")
+
+    # if number in index_to_pizza dictionary, then pizza name is appended to order_list        
+    elif new_order in index_to_pizza:
+        order_list.append(index_to_pizza.get(new_order))
+        # if the number entered by user is associate with a pizza, then price will be added and will move on to toppings
+        if new_order in index_to_price:
+            # adds cost of pizza to order_cost
+            order_cost += index_to_price.get(new_order)
+            topping_menu()
+            time.sleep(1)
+            print("\nAdd toppings using the number next to the name of the topping.")
+            time.sleep(1)
+            print("To finish adding toppings, type 'end'.")
+
+            while True:
+                topping = input("\nInput topping number here: ").strip()
+                if topping in index_to_topping:
+                    order_list.append(index_to_topping.get(topping))
+                    order_cost += 0.5
+                elif topping == "end":
+                    print("\nCurrent total cost of order is: ${}".format(order_cost))
+                    break
+                else:
+                    print("\nThat is not one of the topping options!\n")
+
+    # when user enters 'cancel', they will be sent back to the main menu and order_list will be cleared
+    elif new_order == "cancel":
+        order_list.clear()
+        main_menu()
+        break
+
+    else:
+        print("\nSorry, that is not one of the pizza options\n")
+        continue
+
+  return order_cost
+
+# Function that shows current orders in the order_list
+def view_order():
+  if len(order_list) > 0:
+    for order in order_list:
+      print("{}".format(order, topping))
+  else:
+    print("You have no orders yet!")
+
+
+# Running main program loop (calling functions etc)
+print("Henderson Pizza Palace\n")
+print("\nHello, Welcome to Henderson Pizza Palace text-based ordering system.\nBelow is our Main menu, please enter a number associated with your required service.")
+
+# Prints main menu
+main_menu()
+
+repeat = True
+while repeat:
+  # Ask user for number input
+  main_menu_option = input("\nInput number Here: ").strip()
+
+  # Checking input and calls appropriate function - this one calls the food menus
+  if main_menu_option == "1":
+    pizza_menu()
+    time.sleep(1)
+    topping_menu()
+    time.sleep(1)
+    main_menu()
+
+# this one calls the food menus
+  elif main_menu_option == "2":
+    time.sleep(1)
+    servicing_menu(order_cost)
+    if service_option == '3':
+      continue
+    order(order_cost, topping)
+
+  elif main_menu_option == "3":
+
+    if len(order_list) > 0:
+      print("Thanks for purchasing from Henderson Pizza Palace! \nHope to see you again!")
+    else:
+      print("Thanks for visiting!")
+    repeat = False
+
+  else:
+    print("'{}' wasn't an option\n".format(main_menu_option))
