@@ -1,7 +1,6 @@
 from collections import namedtuple
-from pickle import FALSE
 import time
-
+ 
 # Empty lists to store the orders of user
 order_list = []
 topping = []
@@ -16,7 +15,7 @@ user_info = {}
 pizza_to_price = {'Classic Cheese': 8.50, 'Classic Veggie': 8.50, 'Pepperoni': 8.50, 'Margherita': 8.50, 'Spicy Paneer': 8.50, 'Tandoori Chicken': 13.50, 'Peri Peri Chicken': 13.50, 'BBQ Chicken': 13.50, 'Garlic Prawn': 13.50, 'Americano': 8.50, 'Supreme': 8.50, 'Spicy Lamb': 13.50,}
 
 # Index of pizza to price
-index_to_price = {'1': 8.50, '2': 8.50, '3': 8.50, '4': 8.50, '5': 8.50, '6': 13.50, '7': 13.50, '8': 13.50, '9': 13.50, '10': 13.50, '11': 13.50, '12': 13.50,}
+index_to_price = {'1': 8.50, '2': 8.50, '3': 8.50, '4': 8.50, '5': 8.50, '6': 8.50, '7': 8.50, '8': 13.50, '9': 13.50, '10': 13.50, '11': 13.50, '12': 13.50,}
 
 # Index to pizza
 index_to_pizza = {'1': '\n- Classic Cheese', '2': '\n- Classic Veggie', '3': '\n- Pepperoni', '4': '\n- Margherita', '5': '\n- Spicy Paneer', '6': '\n- Americano', '7': '\n- Supreme', '8': '\n- BBQ Chicken', '9': '\n- Garlic Prawn', '10': '\n- Tandoori Chicken', '11': '\n- Peri Peri Chicken', '12': '\n- Spicy Lamb'}
@@ -31,8 +30,8 @@ pizza_options.append(menu_entry(2, 'Classic Veggie', '$8.50'))
 pizza_options.append(menu_entry(3, 'Pepperoni', '$8.50'))
 pizza_options.append(menu_entry(4, 'Margherita', '$8.50'))
 pizza_options.append(menu_entry(5, 'Spicy Paneer', '$8.50'))
-pizza_options.append(menu_entry(6, 'Americano', '$13.50'))
-pizza_options.append(menu_entry(7, 'Supreme', '$13.50'))
+pizza_options.append(menu_entry(6, 'Americano', '$8.50'))
+pizza_options.append(menu_entry(7, 'Supreme', '$8.50'))
 pizza_options.append(menu_entry(8, 'BBQ Chicken', '$13.50'))
 pizza_options.append(menu_entry(9, 'Garlic Prawn', '$13.50'))
 pizza_options.append(menu_entry(10, 'Tandoori Chicken', '$13.50'))
@@ -56,21 +55,21 @@ topping_options.append(topping_entry(6, 'Extra Chicken', '$0.50'))
 
 # prints and formats the pizza menu
 def pizza_menu():
-  print("\nOur selection of pizzas")
+  print("\033[4;34m\nOur selection of pizzas\033[0m")
   for entry in pizza_options:
       index = str(getattr(entry,'index')).ljust(5)
       pizza = getattr(entry,'pizza').ljust(25)
       price = getattr(entry,'price').ljust(7)
-      print('{}{}{}'.format(index, pizza, price))
+      print('\033[1;34m{}{}{}\033[0m'.format(index, pizza, price))
 
 # Prints and formats the topping menu
 def topping_menu():
-  print("\nOur selection of toppings")
+  print("\033[4;34m\nOur selection of toppings\033[0m")
   for entry in topping_options:
     index = str(getattr(entry,'index')).ljust(5)
     topping = getattr(entry,'topping').ljust(25)
     price = getattr(entry,'price').ljust(7)
-    print('{}{}{}'.format(index, topping, price))
+    print('\033[1;34m{}{}{}\033[0m'.format(index, topping, price))
 
 # Menu function prints out the instructions for the user so they can use a mode option for the Henderson Pizza Palace service.
 def main_menu():
@@ -94,13 +93,14 @@ def servicing_menu(order_cost):
       # Asks the user to input address and phone number
       # Will ask if contact information is correct
       # Will remove contact information and repeat if user inputs "no"
+      contact_repeat = True
+
       if service_option == "1":
         print("\nService Option: Delivery\n")
         time.sleep(1)
         # adds $3 to user order cost as delivery has $3 charge
         order_cost += 3
 
-        contact_repeat = True
         while contact_repeat:
           # error prevention
           try:
@@ -128,30 +128,33 @@ def servicing_menu(order_cost):
             # prints user info dictionary
             for key, value in user_info.items():
               print(key, ':', value)
-            
-          print("\nIs the contact information shown above correct?")
-          correct_information = input("Answer ('yes' or 'no'):  ").strip().lower()
 
-          if correct_information == "no" or correct_information == 'n':
-            print("\nPlease resubmit your contact information")
-            time.sleep(1)
-            contact_repeat = True
-            continue
+          while True:  
+            print("\nIs the contact information shown above correct?")
+            correct_information = input("Answer ('yes' or 'no'):  ").strip().lower()
 
-          # when the user enters 'yes'
-          elif correct_information == "yes" or correct_information == 'y':
-            # exit loops
-            break
+            if correct_information == "no" or correct_information == 'n':
+              print("\nPlease resubmit your contact information")
+              time.sleep(1)
+              contact_repeat = True
+              break
 
-          # if user does not say either 'yes' or 'no'
-          else:
-            print("\nPlease enter a valid response ('yes' or 'no')!")
+            # when the user enters 'yes'
+            elif correct_information == "yes" or correct_information == 'y':
+              # exit loops
+              contact_repeat = False
+              break
+
+            # if user does not say either 'yes' or 'no'
+            else:
+              print("\nPlease enter a valid response ('yes' or 'no')!")
+              continue
 
       elif service_option == "2":
         print("\nService Option: Pick-up\n")
         time.sleep(1)
 
-        while True:
+        while contact_repeat:
           name = input("\nPlease enter your name: ").strip()
           # adds users name to dictionary
           user_info['Name'] = name.title()
@@ -164,17 +167,24 @@ def servicing_menu(order_cost):
             for key, value in user_info.items():
               print(key, ':', value)
 
+          while True:
             print("\nIs the contact information shown above correct?")
             correct_information = input("Answer ('yes' or 'no'):  ").strip().lower()
 
             if correct_information == "no" or correct_information == 'n':
               print("\nPlease resubmit your name for contacting purposes!")
               time.sleep(1)
-              continue
+              contact_repeat = True
+              break
 
             elif correct_information == "yes" or correct_information == 'y':
               # exit loops
+              contact_repeat = False
               break
+
+            else:
+              print("\nPlease enter a valid response ('yes' or 'no')!")
+              continue
             
       # heads back to main menu by exiting loop when user enters '3'
       elif service_option == "3":   
@@ -187,15 +197,17 @@ def servicing_menu(order_cost):
       else:
         print("\nPlease input a valid number ('1', '2' or '3'))\n")
         continue
-      
+
       service_repeat = False
   
   time.sleep(1)
 
 # Function that takes in the users orders 
 def order(order_cost, topping):
+  order_loop = 0
   ordering = True
   while ordering:
+    order_loop += 1
     pizza_menu()
     print("\nOrder using the number next to the name of the pizza.")
     time.sleep(0.5)
@@ -205,8 +217,8 @@ def order(order_cost, topping):
     time.sleep(0.5)
     new_order = input("\nInput Pizza number here: ")
 
-    # when user enters 'end', prints users order, cost, user info and also confirms order 
-    if new_order == "end":
+    # when user enters 'end' or ordering loops 5 times, prints users order, cost, user info and also confirms order 
+    if new_order == "end" or order_loop > 5:
         print("\nContact Information:\n")
         for key, value in user_info.items():
               print(key, ':', value)
@@ -219,14 +231,14 @@ def order(order_cost, topping):
         # when the user confirms order, then 
         if correct_order == "yes" or correct_order == 'y':
             print("\nYour order will be ready soon! Thanks for ordering at Henderson Pizza Palace!\n")
-            # clears order list
-            order_list.clear()
-            main_menu()
             break
+
         # if the order is incorrect, the order list will be cleared
         elif correct_order == "no" or correct_order == 'n':
             order_list.clear()
+            order_loop = 0
             continue
+
         else:
           print("Please enter 'yes' or 'no'")
 
@@ -276,8 +288,8 @@ def view_order():
 
 
 # Running main program loop (calling functions etc)
-print("Henderson Pizza Palace\n")
-print("\nHello, Welcome to Henderson Pizza Palace text-based ordering system.\nBelow is our Main menu, please enter a number associated with your required service.")
+print("\033[1;37m\033[4;37m\nHenderson Pizza Palace\n")
+print("\nHello, Welcome to Henderson Pizza Palace text-based ordering system.\nBelow is our Main menu, please enter a number associated with your required service.\033[0m")
 
 # Prints main menu
 main_menu()
@@ -302,14 +314,22 @@ while repeat:
     if service_option == '3':
       continue
     order(order_cost, topping)
+    print("You have ordered:")
+    view_order()
+    print("Total cost of order: \n${:.2f}".format(order_cost))
+    main_menu()
 
   elif main_menu_option == "3":
 
     if len(order_list) > 0:
       print("Thanks for purchasing from Henderson Pizza Palace! \nHope to see you again!")
+      # clears order list
+      order_list.clear()
+
     else:
       print("Thanks for visiting!")
     repeat = False
 
   else:
     print("'{}' wasn't an option\n".format(main_menu_option))
+ 
