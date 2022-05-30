@@ -372,7 +372,7 @@ def order(order_cost, topping):
 
             # if the order is incorrect, the order list will be cleared
             elif correct_order == "no" or correct_order == "n":
-                print("\n\033[0;33mTime to reorder your pizza...")
+                print("\n\033[0;33mLets backtrack your order...")
                 time.sleep(1)
                 order_list.clear()
                 print("Previous order list cleared...\033[0m")
