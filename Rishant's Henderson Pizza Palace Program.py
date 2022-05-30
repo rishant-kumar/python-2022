@@ -367,6 +367,7 @@ def order(order_cost, topping):
 
                 else:
                     print("\n\033[1;37m\033[4;37mThanks for visiting!\033[0m\n")
+                    time.sleep(1)
                     break
 
             # if the order is incorrect, the order list will be cleared
