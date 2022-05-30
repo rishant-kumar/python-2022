@@ -130,7 +130,7 @@ def main_menu():
     print("\n\033[1;97mType: \n")
     print("'1' to view pizza menu\n")
     print("'2' to order pizza\n")
-    print("'3' to cancel ordering\033[0m\n")
+    print("'3' to cancel/finish ordering\033[0m\n")
 
 
 # Menu function prints out the instructions for the user so they can use a
@@ -139,6 +139,7 @@ def servicing_menu(order_cost):
     """Prints out the instructions for the user so they can use a service option
     for the Henderson Pizza Palace service."""
     print("\n\033[1;97mHow would you like to receive your pizza?\n")
+    print("Type:\n")
     print("'1' Delivery ($3 Delivery charge)\n")
     print("'2' Pick-up\n")
     print("'3' Go back to main menu\n\033[0m")
@@ -306,7 +307,7 @@ def servicing_menu(order_cost):
             break
 
         else:
-            print("\n\033[1;91m\033[40mPlease input a valid number ('1', '2' or '3'))\033[0m\n")
+            print("\n\033[1;91m\033[40mPlease input a valid number (either '1', '2' or '3')\033[0m")
             continue
 
         service_repeat = False
@@ -331,7 +332,14 @@ def order(order_cost, topping):
         # when user enters 'end' or ordering loops 5 times, prints users order,
         # cost, user info and also confirms order
         if new_order == "end" or order_loop > 5:
-            
+            if order_loop > 5:
+                print(
+                "\n\033[0;101m\033[1;91mYou have reached the "
+                "maximum number of pizzas you can order (5)!\033[0m"
+                )
+            else:
+                pass
+
             print("\n\033[1;97mContact Information:\033[0m\n\033[1;96m")
             for key, value in user_info.items():
                 print(key, ":", value)
@@ -363,6 +371,7 @@ def order(order_cost, topping):
                 order_list.clear()
                 print("Previous order list cleared...\033[0m")
                 order_loop = 0
+                time.sleep(1)
                 continue
 
             else:
@@ -377,7 +386,7 @@ def order(order_cost, topping):
             if new_order in index_to_price:
                 # adds cost of pizza to order_cost
                 order_cost += index_to_price.get(new_order)
-                print("\033[1;34mOrdered '{}'\033[0m".format(index_to_pizza.get(new_order)))
+                print("\033[1;34mOrdered {}.\033[0m".format(index_to_pizza.get(new_order)))
                 topping_menu()
                 time.sleep(1)
                 print(
@@ -387,17 +396,26 @@ def order(order_cost, topping):
                 )
                 time.sleep(1)
                 print("To finish adding toppings, type 'end'.\033[0m")
-
+                topping_loop = 0
                 while True:
+                    topping_loop +=1
                     topping = input("\n\033[1;92mInput topping number here: \033[0m").strip()
                     if topping in index_to_topping:
                         order_list.append(index_to_topping.get(topping))
                         order_cost += 0.5
-                        print("\033[1;34mAdded '{}' to pizza\033[0m".format(index_to_topping.get(topping)))
+                        print("\033[1;34mAdded '{}' to pizza.\033[0m".format(index_to_topping.get(topping)))
 
-                    elif topping == "end":
+                    elif topping == "end" or topping_loop > 3:
+                        if topping_loop > 5:
+                            print(
+                                "\n\033[0;101m\033[1;91mYou have reached the "
+                                "maximum number of pizzas you can order (5)!\033[0m"
+                            )
+                        else:
+                            pass
+
                         print(
-                            "\n\033[1;97m\033[0;101m"
+                            "\n\033[1;91m"
                             "Current total cost of order is: ${:.2f}\033[0m".format(order_cost)
                         )
                         break
@@ -421,9 +439,9 @@ def order(order_cost, topping):
             print("\n\033[1;91m\033[40mSorry, that is not one of the pizza options!\033[0m")
             continue
 
-    print("\033[1;97m\033[0;101mYou have ordered:\033[0m")
+    print("\033[1;97mYou have ordered:\033[0m")
     view_order()
-    print("\n\033[1;97mTotal cost of order: ${:.2f}\033[0m".format(order_cost))
+    print("\n\033[1;91mTotal cost of order: ${:.2f}\033[0m".format(order_cost))
     main_menu()
 
     return order_cost
@@ -455,7 +473,7 @@ main_menu()
 repeat = True
 while repeat:
     # Ask user for number input
-    main_menu_option = input("\n\033[1;92mInput number Here: \033[0m").strip()
+    main_menu_option = input("\033[1;92mInput number Here: \033[0m").strip()
 
     # Checking input and calls appropriate function -
     # this one calls the food menus
