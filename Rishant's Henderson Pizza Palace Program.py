@@ -315,7 +315,7 @@ def order(order_cost, topping):
         time.sleep(0.5)
         print("To cancel ordering, type 'cancel'.\033[0m")
         time.sleep(0.5)
-        new_order = input("\n\033[1;92mInput Pizza number here: \033[0m")
+        new_order = input("\n\033[1;92mInput Pizza number here: \033[0m").strip().lower()
         # when user enters 'end' or ordering loops 5 times, prints users order,
         # cost, user info and also confirms order
         if new_order == "end" or order_loop > 5:
@@ -326,7 +326,7 @@ def order(order_cost, topping):
             # shows the user their order
             print("\033[0m\n\033[1;97mYour order is:\033[0m")
             view_order()
-            print("\n\033[1;91mTotal cost of this order is: ${}\033[0m".format(order_cost))
+            print("\n\033[1;91mTotal cost of this order is: ${:.2f}\033[0m".format(order_cost))
 
             correct_order = (
                 input(
@@ -334,10 +334,10 @@ def order(order_cost, topping):
                     "\nIs your order correct? (Please input 'yes' or 'no'): "
                     "\033[0m").strip().lower()
             )
-            # when the user confirms order, then
+            # when the user confirms order, then 
             if correct_order == "yes" or correct_order == "y":
                 print(
-                    "\033[46m"
+                    "\033[1;37m\033[4;37m"
                     "\nYour order will be ready soon! "
                     "Thanks for ordering at Henderson Pizza Palace!\n"
                     "\033[0m"
@@ -380,12 +380,14 @@ def order(order_cost, topping):
                     if topping in index_to_topping:
                         order_list.append(index_to_topping.get(topping))
                         order_cost += 0.5
+
                     elif topping == "end":
                         print(
                             "\n\033[1;97m\033[0;101m"
-                            "Current total cost of order is: ${}\033[0m".format(order_cost)
+                            "Current total cost of order is: ${:.2f}\033[0m".format(order_cost)
                         )
                         break
+
                     else:
                         print("\n\033[1;91m\033[40mThat is not one of the topping options!\033[0m\n")
 
@@ -393,9 +395,9 @@ def order(order_cost, topping):
         # and order_list will be cleared
         elif new_order == "cancel":
             order_list.clear()
+            order_cost = 0
             print("\033[0;93mOrder cleared!\033[0m\n\033[0;93mHeading back to Main menu...\033[0m")
             time.sleep(1)
-            main_menu()
             break
 
         else:
@@ -404,7 +406,8 @@ def order(order_cost, topping):
 
     print("\033[1;97m\033[0;101mYou ordered is:\033[0m")
     view_order()
-    print("\n\033[1;97mTotal cost of order: \n${:.2f}\033[0m".format(order_cost))
+    print("\n\033[1;97mTotal cost of order: ${:.2f}\033[0m".format(order_cost))
+    main_menu()
 
     return order_cost
 
@@ -420,7 +423,8 @@ def view_order():
 
 
 # Running main program loop (calling functions etc)
-print("\033[1;37m\033[4;37m\nHenderson Pizza Palace\n")
+print("\n\033[1;37m\033[4;37mHenderson Pizza Palace\n")
+time.sleep(0.5)
 print(
     "\nHello, Welcome to Henderson Pizza Palace text-based ordering system."
     "\nBelow is our Main menu, "
@@ -445,7 +449,7 @@ while repeat:
         time.sleep(1)
         main_menu()
 
-    # this one calls the food menus
+    # this one calls the servicing and order functions
     elif main_menu_option == "2":
         time.sleep(1)
         servicing_menu(order_cost)
@@ -457,7 +461,7 @@ while repeat:
 
         if len(order_list) > 0:
             print(
-                "\033[46m"
+                "\033[1;37m\033[4;37m"
                 "Thanks for purchasing from Henderson Pizza Palace! "
                 "\nHope to see you again!\033[0m"
             )
@@ -465,7 +469,7 @@ while repeat:
             order_list.clear()
 
         else:
-            print("\033[46mThanks for visiting!\033[0m")
+            print("\n\033[1;37m\033[4;37mThanks for visiting!\033[0m\n")
         repeat = False
 
     else:
