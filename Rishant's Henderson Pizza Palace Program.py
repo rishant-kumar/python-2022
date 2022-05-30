@@ -158,7 +158,7 @@ def servicing_menu(order_cost):
             order_cost += 3
 
             while contact_repeat:
-                # error prevention
+                # non integer error prevention
                 try:
                     phone_number = int(
                         input("\033[1;92mPlease state your phone number: \033[0m").strip()
@@ -184,8 +184,10 @@ def servicing_menu(order_cost):
                     print(
                         "\n\033[1;91m\033[40m"
                         "You have entered no name and no address! "
-                        "Please enter them for contacting purposes.\033[0m\n"
+                        "Please re-enter them for contacting purposes.\033[0m\n"
                     )
+                    print("\033[0;93mBacktracking customer's information...\033[0m\n")
+                    time.sleep(1)
                     continue
 
                 elif len(name) <= 0:
@@ -194,6 +196,8 @@ def servicing_menu(order_cost):
                         "\nYou have entered no name! "
                         "Please enter them for contacting purposes.\033[0m\n"
                     )
+                    print("\033[0;93mBacktracking customer's information...\033[0m\n")
+                    time.sleep(1)
                     continue
 
                 elif len(address) <= 0:
@@ -202,6 +206,8 @@ def servicing_menu(order_cost):
                         "\nYou have entered no address! "
                         "Please enter them for contacting purposes.\033[0m\n"
                     )
+                    print("\033[0;93mBacktracking customer's information...\033[0m\n")
+                    time.sleep(1)
                     continue
 
                 else:
@@ -218,6 +224,8 @@ def servicing_menu(order_cost):
 
                     if correct_info == "no" or correct_info == "n":
                         print("\n\033[1;91mPlease resubmit your contact information\033[0m\n")
+                        time.sleep(0.1)
+                        print("\033[0;93mBacktracking customer's information...\033[0m\n")
                         time.sleep(1)
                         contact_repeat = True
                         break
@@ -238,7 +246,7 @@ def servicing_menu(order_cost):
                         continue
 
         elif service_option == "2":
-            print("\n\033[0;93mService Option: Pick-up\033[0m\n")
+            print("\n\033[0;93mService Option: Pick-up\033[0m")
             time.sleep(1)
 
             while contact_repeat:
@@ -252,6 +260,8 @@ def servicing_menu(order_cost):
                         "You have entered no name! "
                         "Please enter one for contating purposes.\033[0m"
                     )
+                    print("\033[0;93mBacktracking customer's information...\033[0m\n")
+                    time.sleep(1)
                     continue
 
                 else:
@@ -270,6 +280,8 @@ def servicing_menu(order_cost):
                             "\033[1;91mPlease resubmit your name for "
                             "contacting purposes!\n\033[0m"
                         )
+                        time.sleep(0.1)
+                        print("\033[0;93mBacktracking customer's information...\033[0m\n")
                         time.sleep(1)
                         contact_repeat = True
                         break
@@ -365,6 +377,7 @@ def order(order_cost, topping):
             if new_order in index_to_price:
                 # adds cost of pizza to order_cost
                 order_cost += index_to_price.get(new_order)
+                print("\033[1;34mOrdered '{}'\033[0m".format(index_to_pizza.get(new_order)))
                 topping_menu()
                 time.sleep(1)
                 print(
@@ -380,6 +393,7 @@ def order(order_cost, topping):
                     if topping in index_to_topping:
                         order_list.append(index_to_topping.get(topping))
                         order_cost += 0.5
+                        print("\033[1;34mAdded '{}' to pizza\033[0m".format(index_to_topping.get(topping)))
 
                     elif topping == "end":
                         print(
@@ -396,7 +410,10 @@ def order(order_cost, topping):
         elif new_order == "cancel":
             order_list.clear()
             order_cost = 0
-            print("\033[0;93mOrder cleared!\033[0m\n\033[0;93mHeading back to Main menu...\033[0m")
+            print(
+            "\033[0;93mOrder cleared!\033[0m"
+            "\n\033[0;93mHeading back to Main menu...\033[0m"
+            )
             time.sleep(1)
             break
 
@@ -404,7 +421,7 @@ def order(order_cost, topping):
             print("\n\033[1;91m\033[40mSorry, that is not one of the pizza options!\033[0m")
             continue
 
-    print("\033[1;97m\033[0;101mYou ordered is:\033[0m")
+    print("\033[1;97m\033[0;101mYou have ordered:\033[0m")
     view_order()
     print("\n\033[1;97mTotal cost of order: ${:.2f}\033[0m".format(order_cost))
     main_menu()
@@ -462,7 +479,7 @@ while repeat:
         if len(order_list) > 0:
             print(
                 "\033[1;37m\033[4;37m"
-                "Thanks for purchasing from Henderson Pizza Palace! "
+                "Thanks for purchasing from Henderson Pizza Palace!"
                 "\nHope to see you again!\033[0m"
             )
             # clears order list
