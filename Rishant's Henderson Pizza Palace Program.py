@@ -332,10 +332,7 @@ def order(order_cost, topping):
                 input(
                     "\033[1;92m"
                     "\nIs your order correct? (Please input 'yes' or 'no'): "
-                    "\033[0m"
-                    )
-                .strip()
-                .lower()
+                    "\033[0m").strip().lower()
             )
             # when the user confirms order, then
             if correct_order == "yes" or correct_order == "y":
