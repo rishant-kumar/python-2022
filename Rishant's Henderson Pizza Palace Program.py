@@ -356,13 +356,18 @@ def order(order_cost, topping):
             )
             # when the user confirms order, then 
             if correct_order == "yes" or correct_order == "y":
-                print(
-                    "\033[1;37m\033[4;37m"
-                    "\nYour order will be ready soon! "
-                    "Thanks for ordering at Henderson Pizza Palace!\n"
-                    "\033[0m"
-                )
-                break
+                if len(order_list) > 0:
+                    print(
+                        "\033[1;37m\033[4;37m"
+                        "\nYour order will be ready soon! "
+                        "Thanks for ordering at Henderson Pizza Palace!\n"
+                        "\033[0m"
+                    )
+                    break
+
+                else:
+                    print("\n\033[1;37m\033[4;37mThanks for visiting!\033[0m\n")
+                    break
 
             # if the order is incorrect, the order list will be cleared
             elif correct_order == "no" or correct_order == "n":
@@ -454,7 +459,7 @@ def view_order():
             print("\033[1;96m{}\033[0m".format(order, topping))
 
     else:
-        print("\033[1;91m\033[40mYou have no orders yet!\033[0m")
+        print("\n\033[1;91m\033[40mYou have no orders!\033[0m")
 
 
 # Running main program loop (calling functions etc)
