@@ -107,7 +107,7 @@ def pizza_menu():
         index = str(getattr(entry, "index")).ljust(5)
         pizza = getattr(entry, "pizza").ljust(25)
         price = getattr(entry, "price").ljust(7)
-        time.sleep(0.01)
+        time.sleep(0.1)
         print("\033[1;92m{}\033[0m\033[1;34m{}\033[0m\033[1;91m{}\033[0m".format(index, pizza, price))
 
 
@@ -118,7 +118,7 @@ def topping_menu():
         index = str(getattr(entry, "index")).ljust(5)
         topping = getattr(entry, "topping").ljust(25)
         price = getattr(entry, "price").ljust(7)
-        time.sleep(0.01)
+        time.sleep(0.2)
         print("\033[1;92m{}\033[0m\033[1;34m{}\033[0m\033[1;91m{}\033[0m".format(index, topping, price))
 
 
@@ -128,9 +128,13 @@ def main_menu():
     """Prints out the instructions for the user so they can use an action option
     to use the Henderson Pizza Palace service."""
     print("\n\033[1;97mType: \n")
-    print("'1' to view pizza menu\n")
+    time.sleep(0.5)
+    print("'1' to view our pizzas and toppings\n")
+    time.sleep(0.5)
     print("'2' to order pizza\n")
+    time.sleep(0.5)
     print("'3' to cancel/finish ordering\033[0m\n")
+    time.sleep(0.5)
 
 
 # Menu function prints out the instructions for the user so they can use a
@@ -138,11 +142,16 @@ def main_menu():
 def servicing_menu(order_cost):
     """Prints out the instructions for the user so they can use a service option
     for the Henderson Pizza Palace service."""
-    print("\n\033[1;97mHow would you like to receive your pizza?\n")
+    print("\n\033[1;97mHow would you like to be receiving your order?\n")
+    time.sleep(0.5)
     print("Type:\n")
+    time.sleep(0.5)
     print("'1' Delivery ($3 Delivery charge)\n")
+    time.sleep(0.5)
     print("'2' Pick-up\n")
-    print("'3' Go back to main menu\n\033[0m")
+    time.sleep(0.5)
+    print("'3' Go back to main menu\033[0m")
+
     global service_option
     service_repeat = True
     while service_repeat:
@@ -257,11 +266,11 @@ def servicing_menu(order_cost):
                 # prints user info
                 if len(name) <= 0:
                     print(
-                        "\033[0m\033[1;91m\033[40m"
+                        "\n\033[0m\033[1;91m\033[40m"
                         "You have entered no name! "
                         "Please enter one for contating purposes.\033[0m"
                     )
-                    print("\033[0;93mBacktracking customer's information...\033[0m\n")
+                    print("\n\033[0;93mBacktracking customer's information...\033[0m")
                     time.sleep(1)
                     continue
 
@@ -318,74 +327,26 @@ def servicing_menu(order_cost):
 # Function that takes in the users orders
 def order(order_cost, topping):
     order_loop = 0
-    ordering = True
-    while ordering:
-        order_loop += 1
+    while order_loop < 5:
         pizza_menu()
         print("\n\033[0;95mOrder using the number next to the name of the pizza.")
         time.sleep(0.5)
         print("To finish ordering, type 'end'.")
         time.sleep(0.5)
-        print("To cancel ordering, type 'cancel'.\033[0m")
+        print("To cancel ordering, type 'cancel'.")
+        time.sleep(0.5)
+        print("Maximum 5 pizzas per customer.\033[0m")
         time.sleep(0.5)
         new_order = input("\n\033[1;92mInput Pizza number here: \033[0m").strip().lower()
         # when user enters 'end' or ordering loops 5 times, prints users order,
         # cost, user info and also confirms order
-        if new_order == "end" or order_loop > 5:
-            if order_loop > 5:
-                print(
-                "\n\033[0;101m\033[1;91mYou have reached the "
-                "maximum number of pizzas you can order (5)!\033[0m"
-                )
-            else:
-                pass
-
-            print("\n\033[1;97mContact Information:\033[0m\n\033[1;96m")
-            for key, value in user_info.items():
-                print(key, ":", value)
-            # shows the user their order
-            print("\033[0m\n\033[1;97mYour order is:\033[0m")
-            view_order()
-            print("\n\033[1;91mTotal cost of this order is: ${:.2f}\033[0m".format(order_cost))
-
-            correct_order = (
-                input(
-                    "\033[1;92m"
-                    "\nIs your order correct? (Please input 'yes' or 'no'): "
-                    "\033[0m").strip().lower()
-            )
-            # when the user confirms order, then 
-            if correct_order == "yes" or correct_order == "y":
-                if len(order_list) > 0:
-                    print(
-                        "\033[1;37m\033[4;37m"
-                        "\nYour order will be ready soon! "
-                        "Thanks for ordering at Henderson Pizza Palace!\n"
-                        "\033[0m"
-                    )
-                    break
-
-                else:
-                    print("\n\033[1;37m\033[4;37mThanks for visiting!\033[0m\n")
-                    time.sleep(1)
-                    break
-
-            # if the order is incorrect, the order list will be cleared
-            elif correct_order == "no" or correct_order == "n":
-                print("\n\033[0;33mLets backtrack your order...")
-                time.sleep(1)
-                order_list.clear()
-                print("Previous order list cleared...\033[0m")
-                order_loop = 0
-                time.sleep(1)
-                continue
-
-            else:
-                print("\033[1;91m\033[40mPlease enter 'yes' or 'no'\033[0m")
+        if new_order == "end":
+            break
 
         # if number in index_to_pizza dictionary,
         # then pizza name is appended to order_list
         elif new_order in index_to_pizza:
+            order_loop += 1
             order_list.append(index_to_pizza.get(new_order))
             # if the number entered by user is associate with a pizza,
             # then price will be added and will move on to toppings
@@ -398,28 +359,28 @@ def order(order_cost, topping):
                 print(
                     "\033[0;95m"
                     "\nAdd toppings using the number next to the "
-                    "name of the topping."
+                    "name of the topping.\nMaximum 3 toppings allowed per pizza."
                 )
                 time.sleep(1)
                 print("To finish adding toppings, type 'end'.\033[0m")
                 topping_loop = 0
-                while True:
-                    topping_loop +=1
-                    topping = input("\n\033[1;92mInput topping number here: \033[0m").strip()
+                while topping_loop < 3:
+                    topping = input("\n\033[1;92mInput topping number here: \033[0m").strip().lower()                            
                     if topping in index_to_topping:
+                        topping_loop += 1
                         order_list.append(index_to_topping.get(topping))
                         order_cost += 0.5
                         print("\033[1;34mAdded '{}' to pizza.\033[0m".format(index_to_topping.get(topping)))
+                        time.sleep(1)
+                        print(
+                            "\n\033[1;91m"
+                            "Current total cost of order is: ${:.2f}\033[0m".format(order_cost)
+                        )
+                        time.sleep(1)
+                        
+                        continue
 
-                    elif topping == "end" or topping_loop > 3:
-                        if topping_loop > 5:
-                            print(
-                                "\n\033[0;101m\033[1;91mYou have reached the "
-                                "maximum number of pizzas you can order (5)!\033[0m"
-                            )
-                        else:
-                            pass
-
+                    elif topping == 'end':
                         print(
                             "\n\033[1;91m"
                             "Current total cost of order is: ${:.2f}\033[0m".format(order_cost)
@@ -427,13 +388,33 @@ def order(order_cost, topping):
                         break
 
                     else:
-                        print("\n\033[1;91m\033[40mThat is not one of the topping options!\033[0m\n")
+                        print("\n\033[1;91m\033[40mThat is not one of the topping options!\033[0m")
+                        continue
+
+                if topping_loop > 2:
+                    print(
+                        "\n\033[0;101m\033[1;91mYou have reached the "
+                        "maximum number of toppings you can order per pizza (3)!\033[0m"
+                    )
+                    time.sleep(1)
+                    print(
+                        "\n\033[1;91m"
+                        "Current total cost of order is: ${:.2f}\033[0m".format(order_cost)
+                    )
+                    continue
+
+                else:
+                    pass
+
+                time.sleep(2)
 
         # when user enters 'cancel', they will be sent back to the main menu
         # and order_list will be cleared
         elif new_order == "cancel":
+            # reset
             order_list.clear()
             order_cost = 0
+            topping_loop = 0
             print(
             "\033[0;93mOrder cleared!\033[0m"
             "\n\033[0;93mHeading back to Main menu...\033[0m"
@@ -443,12 +424,62 @@ def order(order_cost, topping):
 
         else:
             print("\n\033[1;91m\033[40mSorry, that is not one of the pizza options!\033[0m")
+            time.sleep(2)
             continue
 
-    print("\033[1;97mYou have ordered:\033[0m")
-    view_order()
-    print("\n\033[1;91mTotal cost of order: ${:.2f}\033[0m".format(order_cost))
-    main_menu()
+    if order_loop > 4:
+        print(
+            "\n\033[0;101m\033[1;91mYou have reached the "
+            "maximum number of pizzas you can order per customer (5)!\033[0m"
+        )
+        time.sleep(2)
+
+    else:
+        pass
+
+    while True:
+        print("\n\033[1;97mContact Information:\033[0m\n\033[1;96m")
+        for key, value in user_info.items():
+            print(key, ":", value)
+
+        print("\n\033[1;97mYou have ordered:\033[0m")
+        view_order()
+        print("\n\033[1;91mTotal cost of order: ${:.2f}\033[0m".format(order_cost))
+        time.sleep(1)
+        print("\n\033[0;95mIf your order is correct, type 'yes'to continue\nIf your order is incorect, type 'no' to reorder\033[0m")
+
+        correct_order = (
+                input(
+                        "\033[1;92m"
+                        "\nIs your order correct? (Please input 'yes' or 'no'): "
+                        "\033[0m").strip().lower()
+                )
+        # when the user confirms order, then
+        if correct_order == "yes" or correct_order == "y":
+            print(
+                "\033[1;37m\033[4;37m"
+                "\nYour order will be ready soon! "
+                "Thanks for ordering at Henderson Pizza Palace!\n"
+                "\033[0m"
+                )
+            time.sleep(2)
+            break
+
+        # if the order is incorrect, the order list will be cleared
+        elif correct_order == "no" or correct_order == "n":
+            print("\n\033[0;33mLets backtrack your order...")
+            time.sleep(1)
+            order_list.clear()
+            order_cost = 0
+            print("Previous order list cleared...\033[0m")
+            time.sleep(1)
+            order(order_cost, topping)
+            break
+
+        else:
+            print("\033[1;91m\033[40mPlease enter 'yes' or 'no'\033[0m")
+            time.sleep(1)
+            continue
 
     return order_cost
 
@@ -464,21 +495,22 @@ def view_order():
 
 
 # Running main program loop (calling functions etc)
-print("\n\033[1;37m\033[4;37mHenderson Pizza Palace\n")
+print("\n\033[1;37m\033[4;37mHenderson Pizza Palace\033[0m\n")
 time.sleep(0.5)
 print(
-    "\nHello, Welcome to Henderson Pizza Palace text-based ordering system."
+    "\033[1;97m\nHello, Welcome to Henderson Pizza Palace text-based ordering system."
     "\nBelow is our Main menu, "
-    "please enter a number associated with your required service.\033[0m"
+    "please enter a number associated with your required service."
 )
-
-time.sleep(2)
-# Prints main menu
-main_menu()
+print('Enter the required service and your details before ordering pizzas.\033[0m')
+time.sleep(3.5)
 
 repeat = True
 while repeat:
     # Ask user for number input
+    # Prints main menu
+    main_menu()
+    time.sleep(0.75)
     main_menu_option = input("\033[1;92mInput number Here: \033[0m").strip()
 
     # Checking input and calls appropriate function -
@@ -488,7 +520,6 @@ while repeat:
         time.sleep(1)
         topping_menu()
         time.sleep(1)
-        main_menu()
 
     # this one calls the servicing and order functions
     elif main_menu_option == "2":
@@ -504,14 +535,15 @@ while repeat:
             print(
                 "\033[1;37m\033[4;37m"
                 "Thanks for purchasing from Henderson Pizza Palace!"
-                "\nHope to see you again!\033[0m"
+                "\nHope to see you again {}!\033[0m".format(user_info['Name'])
             )
             # clears order list
             order_list.clear()
+            break
 
         else:
             print("\n\033[1;37m\033[4;37mThanks for visiting!\033[0m\n")
-        repeat = False
+            break
 
     else:
         print("\033[1;91m\033[40m'{}' wasn't an option\033[0m\n".format(main_menu_option))
