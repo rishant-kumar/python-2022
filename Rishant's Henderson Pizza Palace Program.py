@@ -241,7 +241,7 @@ def servicing_menu(order_cost):
                     "\n\033[1;92mPlease enter your name: \033[0m"
                 ).strip()
 
-                if name.isalpha() == True:
+                if len(name) > 0:
                     # adds users name to dictionary
                     user_info["Name"] = name.title()
                     print(
@@ -328,7 +328,7 @@ def servicing_menu(order_cost):
                     "Please enter your name: \033[0m"
                 ).strip()
 
-                if name.isalpha() == True:
+                if len(name) > 0:
                     # adds users name to dictionary
                     user_info["Name"] = name.title()
                     # checks if the user has entered name
@@ -764,4 +764,3 @@ while repeat:
             "\033[0m\n"
             .format(main_menu_option)
         )
-        
