@@ -203,7 +203,7 @@ def servicing_menu(order_cost):
                 user_info["Phone number"] = phone_number
                 print(
                         "\033[0;93mAdded customer's Phone Number..."
-                        "\033[0m\n"
+                        "\033[0m"
                     )
                 time.sleep(1)
 
@@ -218,13 +218,13 @@ def servicing_menu(order_cost):
                     user_info["Address"] = address.title()
                     print(
                         "\033[0;93mAdded customer's Address..."
-                        "\033[0m\n"
+                        "\033[0m"
                     )
                     time.sleep(1)
 
                 else:
                     print(
-                        "\033[1;91m\033[40m"
+                        "\n\033[1;91m\033[40m"
                         "You have not entered an appropriate address! "
                         "Please re-enter it for contacting purposes."
                         "\033[0m\n"
@@ -246,7 +246,7 @@ def servicing_menu(order_cost):
                     user_info["Name"] = name.title()
                     print(
                         "\033[0;93mAdded customer's Name..."
-                        "\033[0m\n"
+                        "\033[0m"
                     )
                     time.sleep(1)
 
@@ -574,7 +574,7 @@ def order(order_cost, topping):
     else:
         pass
     # confirms order loop
-    while True:
+    while len(order_list) > 0:
         # shows user their information
         print("\n\033[1;97mContact Information:\033[0m\n\033[1;96m")
         for key, value in user_info.items():
@@ -628,7 +628,7 @@ def order(order_cost, topping):
         # if user enters anything other than 'yes' or 'no'
         # the prints warning message
         else:
-            print("\033[1;91m\033[40mPlease enter 'Yes' or 'No'\033[0m")
+            print("\n\033[1;91m\033[40mPlease enter 'Yes' or 'No'\033[0m")
             time.sleep(1)
             continue
 
