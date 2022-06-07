@@ -709,7 +709,7 @@ while repeat:
             # program ends
             elif user_continue == "no" or user_continue == "n":
                 print(
-                    "\033[1;37m\033[4;37m"
+                    "\n\033[1;37m\033[4;37m"
                     "Thanks for purchasing from Henderson Pizza Palace!"
                     "\nHope to see you again {}!"
                     "\033[0m"
