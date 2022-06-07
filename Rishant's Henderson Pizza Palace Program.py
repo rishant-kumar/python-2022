@@ -134,8 +134,8 @@ def topping_menu():
 # Menu function prints out the instructions for the user so they can use a
 # mode option for the Henderson Pizza Palace service.
 def main_menu():
-    """Prints out the instructions for the user so they can use an action option
-    to use the Henderson Pizza Palace service."""
+    """Prints out the instructions for the user so they can use an action 
+    option to use the Henderson Pizza Palace service."""
     print("\n\033[1;97mType: \n")
     time.sleep(0.5)
     print("'1' to view our pizzas and toppings\n")
@@ -564,9 +564,9 @@ def order(order_cost, topping):
             continue
     # when the main ordering loop loops 5 times
     # then this message is printed to warn the user
-    if order_loop == 4:
+    if order_loop == 5:
         print(
-            "\n\033[0;101m\033[1;91mYou have reached the "
+            "\n\033[0;101m\033[1;90mYou have reached the "
             "maximum number of pizzas you can order per customer (5)!\033[0m"
         )
         time.sleep(2)
@@ -692,7 +692,7 @@ while repeat:
                 "\n\033[0;95m"
                 "Do you want to continue? "
                 "\nIf 'Yes', then the previous order will be cleared.\n"
-                "If 'No', then leave."
+                "If 'No', then you will be outed."
                 "\033[0m"
             )
             user_continue = input(
