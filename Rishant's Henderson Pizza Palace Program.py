@@ -28,7 +28,8 @@ pizza_to_price = {
     "Spicy Lamb": 13.50,
 }
 
-# Index of pizza to price
+# Index of pizza to price, key= index (number), value = price...
+# ...(associated with that number)
 index_to_price = {
     "1": 8.50,
     "2": 8.50,
@@ -44,7 +45,8 @@ index_to_price = {
     "12": 13.50,
 }
 
-# Index to pizza
+# Index to pizza # Index of pizza to price, key= index (number), 
+# value = pizza name
 index_to_pizza = {
     "1": "\n- Classic Cheese",
     "2": "\n- Classic Veggie",
@@ -110,9 +112,8 @@ def pizza_menu():
         price = getattr(entry, "price").ljust(7)
         time.sleep(0.1)
         print(
-            "\033[1;92m{}\033[0m\033[1;34m{}\033[0m\033[1;91m{}\033[0m".format(
-                index, pizza, price
-            )
+            "\033[1;92m{}\033[0m\033[1;34m{}\033[0m\033[1;91m{}\033[0m"
+            .format(index, pizza, price)
         )
 
 
@@ -125,14 +126,13 @@ def topping_menu():
         price = getattr(entry, "price").ljust(7)
         time.sleep(0.2)
         print(
-            "\033[1;92m{}\033[0m\033[1;34m{}\033[0m\033[1;91m{}\033[0m".format(
-                index, topping, price
-            )
+            "\033[1;92m{}\033[0m\033[1;34m{}\033[0m\033[1;91m{}\033[0m"
+            .format(index, topping, price)
         )
 
 
-# Menu function prints out the instructions for the user so they can use a mode
-# option for the Henderson Pizza Palace service.
+# Menu function prints out the instructions for the user so they can use a
+# mode option for the Henderson Pizza Palace service.
 def main_menu():
     """Prints out the instructions for the user so they can use an action option
     to use the Henderson Pizza Palace service."""
