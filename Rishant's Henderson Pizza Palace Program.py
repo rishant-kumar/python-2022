@@ -171,7 +171,7 @@ def servicing_menu(order_cost):
         # Will ask if contact information is correct
         # Will remove contact information and repeat if user inputs "no"
         contact_repeat = True
-
+        # if user selects 1
         if service_option == "1":
             print("\n\033[0;93mService Option: Delivery\033[0m\n")
             time.sleep(1)
@@ -212,7 +212,7 @@ def servicing_menu(order_cost):
                     "\033[1;92m"
                     "\nPlease enter your delivery address: \033[0m"
                 ).strip()
-
+                # checks if the user has entered a name
                 if len(address) > 0:
                     # adds users address to dictionary
                     user_info["Address"] = address.title()
@@ -240,7 +240,7 @@ def servicing_menu(order_cost):
                 name = input(
                     "\n\033[1;92mPlease enter your name: \033[0m"
                 ).strip()
-
+                # checks if they had entered a name
                 if len(name) > 0:
                     # adds users name to dictionary
                     user_info["Name"] = name.title()
@@ -250,7 +250,7 @@ def servicing_menu(order_cost):
                     )
                     time.sleep(1)
 
-                    # checks if the user has entered name
+                    # if the user has entered no name
                 else:
                     print(
                         "\n\033[1;91m\033[40m"
@@ -264,8 +264,6 @@ def servicing_menu(order_cost):
                     )
                     time.sleep(1)
                     continue
-                # checks if the user has entered name
-
 
                 print(
                     "\n\033[1;97mYour Contact Information:"
@@ -317,7 +315,7 @@ def servicing_menu(order_cost):
                             "('Yes' or 'No')!\033[0m"
                         )
                         continue
-
+        # if user selects 2
         elif service_option == "2":
             print("\n\033[0;93mService Option: Pick-up\033[0m")
             time.sleep(1)
@@ -327,11 +325,10 @@ def servicing_menu(order_cost):
                     "\n\033[1;92m"
                     "Please enter your name: \033[0m"
                 ).strip()
-
+                # checks if the user has entered name
                 if len(name) > 0:
                     # adds users name to dictionary
                     user_info["Name"] = name.title()
-                    # checks if the user has entered name
 
                 else:
                     print(
