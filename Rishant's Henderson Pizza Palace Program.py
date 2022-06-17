@@ -560,6 +560,7 @@ def order(order_cost, topping):
             )
             time.sleep(2)
             continue
+
     # when the main ordering loop loops 5 times
     # then this message is printed to warn the user
     if order_loop == 5:
@@ -571,6 +572,7 @@ def order(order_cost, topping):
 
     else:
         pass
+
     # confirms order
     while len(order_list) > 0:
         # shows user their information
