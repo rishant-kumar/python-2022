@@ -438,7 +438,7 @@ def order(order_cost, topping):
         )
         # when user enters 'end' or ordering loops 5 times, prints users order,
         # cost, user info and also confirms order
-        if "end" in new_order:
+        if new_order == "end":
             break
 
         # if number in index_to_pizza dictionary,
@@ -458,7 +458,6 @@ def order(order_cost, topping):
                     "\033[0m"
                     .format(index_to_pizza.get(new_order))
                 )
-                time.sleep(1.5)
                 topping_menu()
                 time.sleep(1)
                 # prints instructions
@@ -499,7 +498,7 @@ def order(order_cost, topping):
                         continue
                     # if user enters 'end',
                     # breaks out of loop and prints current cost (exits)
-                    elif "end" in topping:
+                    elif topping == "end":
                         print(
                             "\n\033[1;91m"
                             "Current total cost of order is: ${:.2f}\033[0m"
@@ -540,13 +539,11 @@ def order(order_cost, topping):
 
         # when user enters 'cancel', they will be sent back to the main menu
         # and order_list will be cleared
-        elif "cancel" in new_order:
+        elif new_order == "cancel":
             # resets by clearing order_list and tells the user that
+            order_list.clear()
             order_cost = 0
             topping_loop = 0
-            print('\033[0;93mCancelling order...\033[0m')
-            order_list.clear()
-            time.sleep(1)
             print(
                 "\033[0;93mOrder cleared!\033[0m"
                 "\n\033[0;93mHeading back to Main menu...\033[0m"
@@ -574,7 +571,7 @@ def order(order_cost, topping):
 
     else:
         pass
-    # confirms order loop
+    # confirms order
     while len(order_list) > 0:
         # shows user their information
         print("\n\033[1;97mContact Information:\033[0m\n\033[1;96m")
